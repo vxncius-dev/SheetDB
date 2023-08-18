@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+<head>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/5968/5968557.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="UTF-8">
+    <script src="./main.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheetsAPI</title>
+</head>
+<body>
+    <section>
+        <div class="app">
+            <nav class="firstNav">
+                <h1>SheetsAPI</h1>
+                <div class="aboutMe">
+                    <img src="https://avatars.githubusercontent.com/u/92545891?v=4" alt="profilePicture" width="30">
+                    <span></span>
+                    <a href="https://github.com/viuh9997" title="Github.com/viuh9997" target="_blank">Github</a>
+                </div>
+            </nav>
+            <div id="doc">
+                <input type="radio" id="passo1" name="passos" checked>
+                <input type="radio" id="passo2" name="passos">
+                <input type="radio" id="passo3" name="passos">
+                <input type="radio" id="passo4" name="passos">
+                <input type="radio" id="passo5" name="passos">
+
+                <h2>Guia de Uso: Criação de Banco de Dados com Google Sheets e Google Apps Script</h2>
+              
+                <div class="steps">
+                    <label for="passo1" title="Passo 1" class="passo1"><i></i></label><span></span>
+                    <label for="passo2" title="Passo 2" class="passo2"><i></i></label><span></span>
+                    <label for="passo3" title="Passo 3" class="passo3"><i></i></label><span></span>
+                    <label for="passo4" title="Passo 4" class="passo4"><i></i></label><span></span>
+                    <label for="passo5" title="Sobre" class="passo5"><i></i></label>
+                </div>
+              
+                <div class="p step1">
+                    <h3>Passo 1: Criar uma Planilha</h3>
+                    <ul>
+                        <li>Acesse sua conta Google e abra o Google Sheets.</li>
+                        <div class="link" title="Google Sheets">
+                            <span class="material-icons" style="color: #eee;">
+                                description
+                            </span>
+                            <a href="https://docs.google.com/spreadsheets/" target="_blank">Google Sheets</a>
+                        </div>
+                        <li>Crie uma nova planilha para servir como o banco de dados.</li>
+                        <li>Insira os nomes das colunas na primeira linha da planilha. Esses nomes representarão os
+                            campos de dados que você deseja armazenar.</li>
+                        <li>Nestes exemplo inserimos os campos id — nome — email.</li>
+                        <img src="https://s11.gifyu.com/images/Sgbpb.png" alt="newSheetDB" width=280
+                            title="New Sheet Created">
+                        <li>Os dados inseridos nas colunas abaixo da primeira linha serão os registros do banco de
+                            dados.</li>
+                        <li>Dê um nome ao projeto para facilitar a identificação.<br>(Aqui manteremos com o nome padrão
+                            <a class="code"
+                                href="https://docs.google.com/spreadsheets/d/1UCFiYaKga3Un8u6O8Jj6zOQO1WdEZeL6W4vyzxaX0AY/edit?usp=sharing"
+                                target="_blank">Planilha sem título</a>, por ser apenas um modelo para exemplificar!).
+                        </li>
+                        <li>Lembre-se de nomear a página com os dados, aqui também manteremos o nome padrão que é <span
+                                class="code">Página1</span>.</li>
+                    </ul>
+                </div>
+              
+                <div class="p step2">
+                    <h3>Passo 2: Abrir o Google Apps Script</h3>
+                    <ul>
+                        <li>Na barra de menu, selecione "Extensões" > "Apps Script".</li>
+                        <img src="https://s11.gifyu.com/images/ScJ4c.png" alt="goToAppScript" width=280
+                            title="Ir Para o App Script">
+                        <li>Isso abrirá o editor do Google Apps Script.</li>
+                        <img src="https://s11.gifyu.com/images/Sce11.png" alt="AppScriptStartPage" width=280
+                            title="Tela Inicial - App Script">
+                    </ul>
+                </div>
+
+                <div class="p step3">
+                    <h3>Passo 3: Inserir Funções <span class="code">doGet</span> e/ou <span class="code">doPost</span>
+                    </h3>
+                    <ul>
+                        <li>No editor do Google Apps Script, você pode criar uma função <a
+                                href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods/GET" target="_blank"
+                                title="MDN Reference" class="code">doGet</a> para lidar com solicitações HTTP GET e uma
+                            função <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods/POST"
+                                target="_blank" title="MDN Reference" class="code">doPost</a> para solicitações HTTP
+                            POST. (Receber e
+                            inserir dados).</li>
+                        <li>Essas funções receberão os dados da planilha e enviarão as respostas de volta.</li>
+                    </ul>
+                    <div class="line"></div><br>
+                    <h4>Explicação do Código</h4>
+                    <input type="radio" name="function" id="doGet" checked>
+                    <input type="radio" name="function" id="doPost">
+                    <nav class="fnc">
+                        <label for="doGet">Function doGet(&#32;)</label>
+                        <label for="doPost">Function doPost(&#32;)</label>
+                    </nav>
+                    <ol id="AboutDoGet">
+                        <input type="checkbox" id="lm1" name="detalhes1" hidden>
+                        <li>
+                            A função `<span class="code">doGet</span>` é a principal função que é executada quando
+                            alguém
+                            acessa a URL da sua aplicação. Ela organiza os dados da planilha em um formato JSON e
+                            retorna
+                            esses dados como resposta.
+                            <br><br>
+                            <label for="lm1" class="code dt1"></label>
+                            <ul class="detalhes li1">
+                                <li><span class="code">const</span> content = getSheetData();<br>— Obtém os dados da
+                                    planilha utilizando a função auxiliar `getSheetData().</li>
+                                <li><span class="code">const</span> contentObject = { list: content };<br>— Organiza os
+                                    dados obtidos em um objeto chamado `contentObject`, que possui uma propriedade que
+                                    aqui
+                                    nomeamos apenas como
+                                    `list` que armazenará o array de dados.</li>
+                                <li><span class="code">const</span> jsonOutput = JSON.stringify(contentObject);<br>—
+                                    Converte o objeto `contentObject` em uma string JSON.</li>
+                                <li><span class="code">const</span> output =
+                                    ContentService.createTextOutput(jsonOutput)<br>.setMimeType(ContentService.MimeType.JSON);<br>—
+                                    Cria uma saída de texto no formato JSON e define o tipo de conteúdo como JSON.</li>
+                                <li><span class="code">return</span> output;<br>— Retorna a saída formatada como JSON.
+                                </li>
+                            </ul>
+                        </li>
+                        <pre class="script"><button type="button" class="copy"><span class="material-icons">content_copy</span></button><code>
+function doGet() {
+  const content = getSheetData();
+  const contentObject = { list: content };
+  const jsonOutput = JSON.stringify(contentObject);
+  const output = ContentService.createTextOutput(jsonOutput)
+    .setMimeType(ContentService.MimeType.JSON);
+  return output;
+}
+        </code></pre>
+                        <input type="checkbox" id="lm2" name="detalhes2" hidden>
+                        <li>
+                            A função `<span class="code">getSheetData</span>` é uma função auxiliar que obtém os dados
+                            da
+                            planilha e os organiza em um formato adequado para a resposta JSON. <br><br>
+                            <label for="lm2" class="code dt2"></label>
+                            <ul class="detalhes li2">
+                                <li><span class="code">const</span> activeSpreadsheet =
+                                    SpreadsheetApp.getActiveSpreadsheet();<br>— Obtém a planilha ativa.</li>
+                                <li><span class="code">const</span> dataSheet =
+                                    activeSpreadsheet.getSheetByName("Página1");<br>— Obtém a folha de dados da planilha
+                                    com
+                                    o nome "Página1".<br>(O nome que lhe indicamos mudar no Passo 2).</li>
+                                <li><span class="code">const</span> dataRange = dataSheet.getDataRange();<br>— Obtém o
+                                    intervalo de dados da planilha.</li>
+                                <li><span class="code">const</span> dataValues = dataRange.getValues();<br>— Obtém os
+                                    valores dentro do intervalo.</li>
+                                <li><span class="code">const</span> headers = dataValues[0];<br>— Obtém os cabeçalhos da
+                                    primeira linha.</li>
+                                <li><span class="code">const</span> content = [];<br>— Cria um array vazio para
+                                    armazenar os
+                                    registros.</li>
+                                <li>O loop `<span class="code">for</span>` itera sobre cada linha de dados (começando da
+                                    segunda linha, índice 1).
+                                    <ul>
+                                        <li><span class="code">const</span> row = dataValues[i];<br>— Obtém os valores
+                                            da
+                                            linha atual.</li>
+                                        <li>O loop interno `<span class="code">for</span>` itera sobre cada coluna em
+                                            uma
+                                            linha.
+                                            <ul>
+                                                <li><span class="code">const</span> header = headers[j];<br>— Obtém o
+                                                    nome
+                                                    da coluna correspondente no cabeçalho.</li>
+                                                <li><span class="code">const</span> value = row[j];<br>— Obtém o valor
+                                                    na
+                                                    célula atual.</li>
+                                                <li><span class="code">item[header]</span> = value;<br>— Associa o nome
+                                                    da
+                                                    coluna ao valor na célula para criar um objeto.</li>
+                                            </ul>
+                                        </li>
+                                        <li>O objeto `<span class="code">item</span>` é adicionado ao array `content`.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span class="code">return</span> content;<br>— Retorna o array de objetos, que
+                                    representa os registros da planilha.</li>
+                            </ul>
+                        </li>
+                        <pre class="script"><button type="button" class="copy"><span class="material-icons">content_copy</span></button><code>
+function getSheetData() {
+  const activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const dataSheet = activeSpreadsheet.getSheetByName("Página1");
+  const dataRange = dataSheet.getDataRange();
+  const dataValues = dataRange.getValues();
+  const headers = dataValues[0];
+  const content = [];
+        
+  for (let i = 1; i &lt; dataValues.length; i++) {
+    const row = dataValues[i];
+    const item = {};
+            
+    for (let j = 0; j &lt; row.length; j++) {
+      const header = headers[j];
+      const value = row[j];
+      item[header] = value;
+    }
+    content.push(item);
+  }
+  return content;
+}
+        </code></pre>
+                    </ol>
+                    <ol id="AboutDoPost">
+                        <input type="checkbox" id="lm3" name="detalhes3" hidden>
+                        <li>
+                            A função `<span class="code">doPost</span>` é acionada quando dados são enviados para a sua
+                            aplicação por meio de uma solicitação POST. Essa função recebe os dados enviados, analisa-os
+                            e
+                            adiciona os itens à planilha.
+                            <br><br>
+                            <label for="lm3" class="code dt3"></label>
+                            <ul class="detalhes li3">
+                                <li><span class="code">const</span> data = e.parameter.data;<br>— Obtém o valor do
+                                    parâmetro
+                                    'data' diretamente dos parâmetros da solicitação POST.</li>
+                                <li><span class="code">const</span> ss = SpreadsheetApp.getActiveSpreadsheet();<br>—
+                                    Obtém a
+                                    planilha ativa.</li>
+                                <li><span class="code">const</span> dataSheet = ss.getSheetByName('Página1');<br>— Obtém
+                                    a
+                                    folha de dados da planilha com o nome 'Página1'.</li>
+                                <li>Utiliza um bloco <span class="code">try-catch</span> para lidar com possíveis erros
+                                    durante o processo.</li>
+                                <li>O código dentro do bloco <span class="code">try</span> realiza as seguintes etapas:
+                                </li>
+                                <ul>
+                                    <li>Analisa os dados JSON recebidos usando <span
+                                            class="code">JSON.parse(data)</span>.
+                                    </li>
+                                    <li>Itera sobre cada item no array de dados recebidos usando <span
+                                            class="code">dataParse.list.forEach()</span>.</li>
+                                    <li>Adiciona uma nova linha à planilha com os valores do item usando <span
+                                            class="code">dataSheet.appendRow()</span>.</li>
+                                </ul>
+                                <li>Retorna uma mensagem de sucesso usando <span
+                                        class="code">ContentService.createTextOutput()</span> em caso de êxito.</li>
+                                <li>Caso ocorra um erro, retorna a mensagem de erro.</li>
+                            </ul>
+                        </li>
+                        <pre class="script"><button type="button" class="copy"><span class="material-icons">content_copy</span></button><code>
+function doPost(e) {
+  const data = e.parameter.data;
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const dataSheet = ss.getSheetByName('Página1');
+        
+  try {
+    const dataParse = JSON.parse(data);
+    dataParse.list.forEach((item) => {
+      dataSheet.appendRow([item.id, item.name, item.email]);
+    });
+            
+    return ContentService.createTextOutput("Itens adicionados com sucesso.");
+  } catch (error) {
+    return ContentService.createTextOutput(error);
+  }
+}
+        </code></pre>
+                    </ol>
+                    <h4 style="margin-top: 20px;">Ativação do Código no ambiente do App Script</h4>
+                    <li>Remova a função que se inicia após criar o projeto e insira as funções necessárias as quais você
+                        deja utilizar.</li>
+                    <li>Para corrigir possíveis erros no código aperte as teclas 'Shift' + 'Alt' + 'F' para formatar,
+                        caso queira fique a vontade para nomear seu arquivo. Salve o projeto no Google
+                        Apps Script, clique para executar e dê as permissões solicidas.</li>
+                    <li>Após isso clique em "Implantar" > "Gerenciar Implantações" > "Criar implantação" > "<span
+                            class="material-icons" style="font-size: 16px;">settings</span> Ativar tipos de implantação"
+                        e por fim "App da Web".</li>
+                    <li>Aparecerá outra tela e essa é a ultima etapa onde você deverá por o campo <span
+                            class="code">"Quem pode acessar"</span> como "Qualquer pessoa" e clicar em <span
+                            class="code">Implantar</span>.</li>
+                    <li>Por fim será exibido uma tela com o link da sua planilha, copie e cole no
+                        seu navegador onde
+                        lhe será exibido o retorno da sua função doGet() em JSON, e como ainda não foram inseridos
+                        dados,
+                        retornará
+                        apenas um array vazio. <span class="code">{ list : [] }</span></li>
+                    <li class="liCode">
+                        <h4>App da Web</h4><br>
+                        <p>URL</p><br>
+                        <small class="code"
+                            id="url">https://script.google.com/macros/s/AKfycbyk-hxzAFC8BJuyABZfohlHegHZHg4JOZIFp6dFCON7fOsYRd6_yrmr1m5A7rvUAFwgVg/exec</small><br><br>
+                        <span class="code copyLink"
+                            style="cursor:pointer;display: inline-flex;align-items: center;"><span
+                                class="material-icons code"
+                                style="font-size: 18px;margin-right: 5px;">content_copy</span> Copiar</span>
+                    </li>
+                    <li>Uma observação importante a se fazer é que após qualquer modificação feita no seu código do App
+                        Script, você deverá clicar em "Implantar" > "Gerenciar Implantações" > "Editar" > No campo
+                        "Versão" selecione como "Nova versão" e clique em "Implantar" para atualizar.</li>
+                </div>
+
+                <div class="p step4">
+                    <h3>Passo 4: Criar Formulário HTML para Testar</h3>
+                    <ul>
+                        <li>Crie um formulário HTML ou qualquer outra interface de usuário que permita a entrada de
+                            dados.
+                        </li>
+                        <li>Nesse formulário, utilize JavaScript para fazer solicitações HTTP para as funções <a
+                                href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods/GET" target="_blank"
+                                title="MDN Reference">doGet</a> e/ou <a
+                                href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods/POST" target="_blank"
+                                title="MDN Reference">doPost</a> do Google Apps Script.</li>
+                        <li>Envie os dados para a planilha e/ou recupere os dados armazenados.</li>
+                    </ul>
+                    <div class="form">
+                        <h4>Receber dados <span class="code">GET</span></h4>
+                        <form id="getDataForm">
+                            <button type="button" id="getDataButton" class="link formBtn" onclick="getData()">Obter Dados</button>
+                        </form>
+                        <div id="responseContainer"></div>
+                        <h5>Função utilizada para obter os dados!</h5>
+                        <pre class="script"><code>
+fetch( "URL_da_sua_planilha" )
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => {
+    console.error('Erro ao obter dados:', error);
+  });
+                            </code></pre>
+                        <h4 style="margin-top: 20px;">Enviar Dados <span class="code">POST</span></h4>
+                        <form id="postDataForm">
+                            <input type="text" id="name" name="name" required placeholder="Nome"><br>
+                            <input type="email" id="email" name="email" required placeholder="Email"><br>
+                            <button type="submit" id="sendDataButton" class="link">Enviar</button>
+                        </form>
+                        <div id="responseContainerPost"></div>
+                        <h5>Função para inserir novos dados!</h5>
+                        <pre class="script"><code>
+const form = "Referencie aqui seu formulário!"
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  const parsedData = JSON.stringify({
+    "list": [{
+      id: (new Date().getTime()).toString(),
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value
+    }]
+  })
+    
+  formData.append("data", parsedData);
+                    
+  fetch(urlApi, {
+    method: "POST",
+    body: formData
+  })
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error("Erro:", error));
+});
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div class="p step5 sobre">
+                    <h2>Sobre</h2>
+                    <p>
+                        Decidi criar essa documentação como uma solução de armazenamento de dados baseada em planilhas
+                        por se tratar de uma das maneiras mais simples e prática de gerenciar informações.<br><br>
+                        Sem complicações técnicas. Facilmente você pode combinar suas planilhas do Google Sheets com o
+                        Google Apps Script.
+                        E assim criar, visualizar e atualizar informações que você poderá utilizar de forma rápida e
+                        gratuita.<br><br>
+                        Esse passo a passo foi criado para solucionar essa necessidade por armazenamento de dados.<br>
+                        Transforme suas planilhas em uma solução de armazenamento eficaz e utilize como desejar em seu
+                        app ou site.
+                    </p>
+                </div>
+            </div>
+            <footer> 2023 &copy; Vinícius Oliveira </footer>
+        </div>
+    </section>
+</body>
+</html>
