@@ -48,8 +48,7 @@ function getData() {
             preElement.classList.add("preE");
             preElement.textContent = JSON.stringify(data, null, 2);
             responseContainer.appendChild(preElement);
-            document.querySelector(".preE").innerHTML += `<span class="material-icons closeGet"
-                style="font-size: 18px;margin-right: 5px;">backspace</span>`;
+            document.querySelector(".preE").innerHTML += `<span class="material-icons closeGet">backspace</span>`;
             document.querySelector(".closeGet").addEventListener("click", () => {
             document.querySelector(".preE").remove();
             })
