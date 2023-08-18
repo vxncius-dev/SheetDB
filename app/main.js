@@ -13,10 +13,9 @@ copyButtons.forEach(function (button) {
     });
 });
 
-const copyLinkSpan = document.querySelector('.copyLink');
 const urlSmall = document.querySelector('#url');
 
-copyLinkSpan.addEventListener('click', function () {
+function copyLink() {
     const textToCopy = urlSmall.textContent;
     const textarea = document.createElement('textarea');
     textarea.value = textToCopy;
