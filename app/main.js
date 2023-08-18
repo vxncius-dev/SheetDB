@@ -24,7 +24,7 @@ function copyLink() {
     document.execCommand('copy');
     document.body.removeChild(textarea);
     alert('Link copiado para a área de transferência!');
-});
+};
 
 const radioButtons = document.querySelectorAll('input[name="passos"]');
 radioButtons.forEach(radioBtn => {
