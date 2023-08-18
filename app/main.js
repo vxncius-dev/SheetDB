@@ -1,3 +1,84 @@
-const copyButtons=document.querySelectorAll(".copy");copyButtons.forEach(function(e){e.addEventListener("click",function(){let e=this.nextElementSibling,t=e.textContent,n=document.createElement("textarea");n.value=t,document.body.appendChild(n),n.select(),document.execCommand("copy"),document.body.removeChild(n),alert("C\xf3digo copiado para a \xe1rea de transfer\xeancia!")})});const copyLinkSpan=document.querySelector(".copyLink"),urlSmall=document.querySelector("#url");copyLinkSpan.addEventListener("click",function(){let e=urlSmall.textContent,t=document.createElement("textarea");t.value=e,document.body.appendChild(t),t.select(),document.execCommand("copy"),document.body.removeChild(t),alert("Link copiado para a \xe1rea de transfer\xeancia!")});const radioButtons=document.querySelectorAll('input[name="passos"]');radioButtons.forEach(e=>{e.addEventListener("input",()=>{if(e.checked){let t=e.getAttribute("id").replace("passo","step"),n=document.querySelector(`.${t}`);n&&n.scrollIntoView({behavior:"smooth"})}})});const urlApi=document.getElementById("url").textContent,responseContainer=document.getElementById("responseContainer");function getData(){fetch(urlApi).then(e=>e.json()).then(e=>{responseContainer.innerHTML="";let t=document.createElement("pre");t.classList.add("preE"),t.textContent=JSON.stringify(e,null,2),responseContainer.appendChild(t),document.querySelector(".preE").innerHTML+=`<span
-                                class="material-icons closeGet"
-                                style="font-size: 18px;margin-right: 5px;">backspace</span>`,document.querySelector(".closeGet").addEventListener("click",()=>{document.querySelector(".preE").remove()})}).catch(e=>{console.error("Erro ao obter dados:",e),responseContainer.innerHTML="Ocorreu um erro ao obter os dados."})}getData();const form=document.getElementById("postDataForm");form.addEventListener("submit",e=>{e.preventDefault();let t=new FormData,n=new Date().getTime().toString(),r=JSON.stringify({list:[{id:n,name:document.getElementById("name").value,email:document.getElementById("email").value}]});t.append("data",r),fetch(urlApi,{method:"POST",body:t}).then(e=>e.text()).then(e=>{alert(e),getData()}).catch(e=>console.error("Erro:",e))});
+const copyButtons = document.querySelectorAll('.copy');
+copyButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+        const codeBlock = this.nextElementSibling;
+        const codeText = codeBlock.textContent;
+        const textarea = document.createElement('textarea');
+        textarea.value = codeText;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Código copiado para a área de transferência!');
+    });
+});
+
+const copyLinkSpan = document.querySelector('.copyLink');
+const urlSmall = document.querySelector('#url');
+
+copyLinkSpan.addEventListener('click', function () {
+    const textToCopy = urlSmall.textContent;
+    const textarea = document.createElement('textarea');
+    textarea.value = textToCopy;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    alert('Link copiado para a área de transferência!');
+});
+
+const radioButtons = document.querySelectorAll('input[name="passos"]');
+radioButtons.forEach(radioBtn => {
+    radioBtn.addEventListener('input', () => {
+        if (radioBtn.checked) {
+            const targetId = radioBtn.getAttribute('id').replace('passo', 'step');
+            const targetDiv = document.querySelector(`.${targetId}`);
+            if (targetDiv) { targetDiv.scrollIntoView({ behavior: 'smooth' })}
+        }
+    });
+});
+
+const urlApi = document.getElementById("url").textContent;
+const responseContainer = document.getElementById('responseContainer');
+function getData() {
+    fetch(urlApi)
+        .then(response => response.json())
+        .then(data => {
+            responseContainer.innerHTML = '';
+            const preElement = document.createElement('pre');
+            preElement.classList.add("preE");
+            preElement.textContent = JSON.stringify(data, null, 2);
+            responseContainer.appendChild(preElement);
+            document.querySelector(".preE").innerHTML += `<span class="material-icons closeGet"
+                style="font-size: 18px;margin-right: 5px;">backspace</span>`;
+            document.querySelector(".closeGet").addEventListener("click", () => {
+            document.querySelector(".preE").remove();
+            })
+        })
+        .catch(error => {
+            console.error('Erro ao obter dados:', error);
+            responseContainer.innerHTML = 'Ocorreu um erro ao obter os dados.';
+        });
+};
+getData();
+
+const form = document.getElementById("postDataForm");
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const parsedData = JSON.stringify({
+        "list": [{
+            id: (new Date().getTime()).toString(),
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value
+        }]
+    })
+    formData.append("data", parsedData);
+    fetch(urlApi, {
+        method: "POST",
+        body: formData
+    })
+        .then((response) => response.text())
+        .then((result) => { alert(result); getData() })
+        .catch((error) => console.error("Erro:", error));
+});
