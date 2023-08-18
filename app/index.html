@@ -188,25 +188,25 @@ function doGet() {
                         </li>
                         <pre class="script"><button type="button" class="copy"><span class="material-icons">content_copy</span></button><code>
 function getSheetData() {
-  const activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  const dataSheet = activeSpreadsheet.getSheetByName("Página1");
-  const dataRange = dataSheet.getDataRange();
-  const dataValues = dataRange.getValues();
-  const headers = dataValues[0];
-  const content = [];
-        
-  for (let i = 1; i &lt; dataValues.length; i++) {
-    const row = dataValues[i];
-    const item = {};
+    const activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const dataSheet = activeSpreadsheet.getSheetByName("Página1");
+    const dataRange = dataSheet.getDataRange();
+    const dataValues = dataRange.getValues();
+    const headers = dataValues[0];
+    const content = [];
+                            
+    for (let i = 1; i &lt; dataValues.length; i++) {
+        const row = dataValues[i];
+        const item = {};
             
-    for (let j = 0; j &lt; row.length; j++) {
-      const header = headers[j];
-      const value = row[j];
-      item[header] = value;
+        for (let j = 0; j &lt; row.length; j++) {
+            const header = headers[j];
+            const value = row[j];
+            item[header] = value;
+        }
+        content.push(item);
     }
-    content.push(item);
-  }
-  return content;
+    return content;
 }
         </code></pre>
                     </ol>
@@ -249,20 +249,19 @@ function getSheetData() {
                         </li>
                         <pre class="script"><button type="button" class="copy"><span class="material-icons">content_copy</span></button><code>
 function doPost(e) {
-  const data = e.parameter.data;
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const dataSheet = ss.getSheetByName('Página1');
+    const data = e.parameter.data;
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const dataSheet = ss.getSheetByName('Página1');
         
-  try {
-    const dataParse = JSON.parse(data);
-    dataParse.list.forEach((item) => {
-      dataSheet.appendRow([item.id, item.name, item.email]);
-    });
-            
-    return ContentService.createTextOutput("Itens adicionados com sucesso.");
-  } catch (error) {
-    return ContentService.createTextOutput(error);
-  }
+    try {
+        const dataParse = JSON.parse(data);
+        dataParse.list.forEach((item) => {
+            dataSheet.appendRow([item.id, item.name, item.email]);
+        });
+        return ContentService.createTextOutput("Itens adicionados com sucesso.");
+    } catch (error) {
+        return ContentService.createTextOutput(error);
+    }
 }
         </code></pre>
                     </ol>
@@ -289,9 +288,8 @@ function doPost(e) {
                         <p>URL</p><br>
                         <small class="code"
                             id="url">https://script.google.com/macros/s/AKfycbyk-hxzAFC8BJuyABZfohlHegHZHg4JOZIFp6dFCON7fOsYRd6_yrmr1m5A7rvUAFwgVg/exec</small><br><br>
-                        <span class="code copyLink"
-                            style="cursor:pointer;display: inline-flex;align-items: center;"><span
-                                class="material-icons code"
+                        <span class="code copyLink" onclick="copyLink()"
+                            style="cursor:pointer;display: inline-flex;align-items: center;"><span class="material-icons code"
                                 style="font-size: 18px;margin-right: 5px;">content_copy</span> Copiar</span>
                     </li>
                     <li>Uma observação importante a se fazer é que após qualquer modificação feita no seu código do App
@@ -321,11 +319,11 @@ function doPost(e) {
                         <h5>Função utilizada para obter os dados!</h5>
                         <pre class="script"><code>
 fetch( "URL_da_sua_planilha" )
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => {
-    console.error('Erro ao obter dados:', error);
-  });
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => {
+        console.error('Erro ao obter dados:', error);
+    });
                             </code></pre>
                         <h4 style="margin-top: 20px;">Enviar Dados <span class="code">POST</span></h4>
                         <form id="postDataForm">
@@ -338,26 +336,25 @@ fetch( "URL_da_sua_planilha" )
                         <pre class="script"><code>
 const form = "Referencie aqui seu formulário!"
 form.addEventListener("submit", (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const formData = new FormData();
-  const parsedData = JSON.stringify({
-    "list": [{
-      id: (new Date().getTime()).toString(),
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value
-    }]
-  })
-    
-  formData.append("data", parsedData);
+    const formData = new FormData();
+    const parsedData = JSON.stringify({
+        "list": [{
+            id: (new Date().getTime()).toString(),
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value
+        }]
+    })
+    formData.append("data", parsedData);
                     
-  fetch(urlApi, {
-    method: "POST",
-    body: formData
-  })
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.error("Erro:", error));
+    fetch(urlApi, {
+        method: "POST",
+        body: formData
+    })
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error("Erro:", error));
 });
                         </code></pre>
                     </div>
