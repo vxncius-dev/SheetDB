@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR" dir="ltr">
 <head>
+    <meta charset="UTF-8">
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/5968/5968557.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta charset="UTF-8">
     <script defer src="./main.js"></script>
     <link rel="stylesheet" href="./style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -265,14 +265,14 @@ function doPost(e) {
 }
         </code></pre>
                     </ol>
-                    <h4 style="margin-top: 20px;">Ativação do Código no ambiente do App Script</h4>
+                    <h4 class="mt">Ativação do Código no ambiente do App Script</h4>
                     <li>Remova a função que se inicia após criar o projeto e insira as funções necessárias as quais você
                         deja utilizar.</li>
                     <li>Para corrigir possíveis erros no código aperte as teclas 'Shift' + 'Alt' + 'F' para formatar,
                         caso queira fique a vontade para nomear seu arquivo. Salve o projeto no Google
                         Apps Script, clique para executar e dê as permissões solicidas.</li>
                     <li>Após isso clique em "Implantar" > "Gerenciar Implantações" > "Criar implantação" > "<span
-                            class="material-icons" style="font-size: 16px;">settings</span> Ativar tipos de implantação"
+                            class="material-icons sett">settings</span> Ativar tipos de implantação"
                         e por fim "App da Web".</li>
                     <li>Aparecerá outra tela e essa é a ultima etapa onde você deverá por o campo <span
                             class="code">"Quem pode acessar"</span> como "Qualquer pessoa" e clicar em <span
@@ -288,9 +288,7 @@ function doPost(e) {
                         <p>URL</p><br>
                         <small class="code"
                             id="url">https://script.google.com/macros/s/AKfycbyk-hxzAFC8BJuyABZfohlHegHZHg4JOZIFp6dFCON7fOsYRd6_yrmr1m5A7rvUAFwgVg/exec</small><br><br>
-                        <span class="code copyLink" onclick="copyLink()"
-                            style="cursor:pointer;display: inline-flex;align-items: center;"><span class="material-icons code"
-                                style="font-size: 18px;margin-right: 5px;">content_copy</span> Copiar</span>
+                        <span class="code copyLink" onclick="copyLink()"><span class="material-icons code">content_copy</span> Copiar</span>
                     </li>
                     <li>Uma observação importante a se fazer é que após qualquer modificação feita no seu código do App
                         Script, você deverá clicar em "Implantar" > "Gerenciar Implantações" > "Editar" > No campo
@@ -325,7 +323,7 @@ fetch( "URL_da_sua_planilha" )
         console.error('Erro ao obter dados:', error);
     });
                             </code></pre>
-                        <h4 style="margin-top: 20px;">Enviar Dados <span class="code">POST</span></h4>
+                        <h4 class="mt">Enviar Dados <span class="code">POST</span></h4>
                         <form id="postDataForm">
                             <input type="text" id="name" name="name" required placeholder="Nome"><br>
                             <input type="email" id="email" name="email" required placeholder="Email"><br>
